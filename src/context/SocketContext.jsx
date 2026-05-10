@@ -29,11 +29,14 @@ export const SocketProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // In production, this would be your server URL. 
-    // In dev, Vite proxy handles "/socket.io" automatically if we use relative path
-    const newSocket = io("/", {
+    // Dev: Vite proxy handles "/" → localhost:5000
+    // Prod: Connect directly to the Render backend URL
+    const SOCKET_URL = import.meta.env.VITE_API_BASE_URL || "/";
+
+    const newSocket = io(SOCKET_URL, {
       reconnectionAttempts: 5,
       reconnectionDelay: 2000,
+      transports: ["websocket", "polling"], // Try WebSocket first, fallback to polling
     });
 
     newSocket.on("connect", () => {
