@@ -1,0 +1,3 @@
+/* Vercel SPA routing — all paths fall back to index.html */
+/* This file is auto-handled by Vercel for Vite projects.   */
+/*  vercel.json handles the rewrite rules instead.          */
